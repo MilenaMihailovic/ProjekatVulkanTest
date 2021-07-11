@@ -4,6 +4,7 @@ import org.junit.rules.Timeout;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,6 +51,18 @@ public class ShoppingTest extends BaseTest{
         searchField.sendKeys("Prokleta avlija");
         searchField.sendKeys(Keys.ENTER);
 
+       WebElement numberOfProducts = driver.findElement(By.xpath("//div[@class='products-found']"));
+        if (numberOfProducts != null) {
+            System.out.println("The book with title Prokleta avlija is found. ");
+        } else{
+            System.out.println("Product is not found. ");
+        }
+
+
+
+
+
+
     }
 
     //* Test Promotivna besplatna isporuka
@@ -72,12 +85,9 @@ public class ShoppingTest extends BaseTest{
         freeDelivery.click();
 
         String titleFreeDelivery= driver.getTitle();
-        System.out.println(" [TEST REPORT ] Prikaz naslova na strani Terms Of Use: " + titleFreeDelivery);
+        System.out.println(" [TEST REPORT ] Prikaz naslova na strani: " + titleFreeDelivery);
 
-        String currentPageURL = driver.getCurrentUrl();
-        Assert.assertTrue("We are not logged in. Expected url : " + Strings.FREE_DELIVERY +
-                ". Actual: " + currentPageURL, currentPageURL.contains(Strings.FREE_DELIVERY));
-
+        Assert.assertTrue(titleFreeDelivery.contains("Besplatna isporuka za bilo koji iznos kupovnine"));
     }
 
 
@@ -108,6 +118,8 @@ public class ShoppingTest extends BaseTest{
 
             WebElement childPencilBox = driver.findElement(By.xpath("/html/body/div[4]/div[1]/div/div/div/div[5]/div/div[2]/div/div/div[7]/div[1]/div[1]/a[2]"));
             childPencilBox.click();
+
+
 
             Thread.sleep(3000);
 

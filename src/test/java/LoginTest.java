@@ -1,6 +1,7 @@
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,6 +47,11 @@ public class LoginTest extends BaseTest{
         WebElement submitButton = driver.findElement(By.xpath("//button[@class='btn btn-success btn-login confirm-loader']"));
         submitButton.click();
 
+        String currentPageURL = driver.getCurrentUrl();
+        Assert.assertTrue("We are not logged in. Expected url : " + Strings.MAIN_PAGE +
+                ". Actual: " + currentPageURL, currentPageURL.contains(Strings.MAIN_PAGE));
+
+
 
 
 
@@ -83,7 +89,9 @@ public class LoginTest extends BaseTest{
         WebElement submitButton = driver.findElement(By.xpath("//button[@class='btn btn-success btn-login confirm-loader']"));
         submitButton.click();
 
-
+        String currentPageURL = driver.getCurrentUrl();
+        Assert.assertTrue("We are not logged in. Expected url : " + Strings.MAIN_PAGE +
+                ". Actual: " + currentPageURL, currentPageURL.contains(Strings.MAIN_PAGE));
 
 
     }
