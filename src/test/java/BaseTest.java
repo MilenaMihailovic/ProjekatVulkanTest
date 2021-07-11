@@ -83,7 +83,7 @@ public class BaseTest {
             wait.until(ExpectedConditions.visibilityOf(cookieConsent));
             cookieConsent.click();
 
-            WebElement termsOfUse = driver.findElement(By.xpath("//a[@href='https://www.knjizare-vulkan.rs/uslovi-koriscenja'][contains(text(),'Uslovi')]"));
+            WebElement termsOfUse = driver.findElement(By.xpath("//a[@title='Uslovi korišćenja']"));
             termsOfUse.click();
 
 
