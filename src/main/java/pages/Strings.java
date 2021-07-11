@@ -9,6 +9,10 @@ public class Strings {
     public static final String WISH_LIST = "https://www.knjizare-vulkan.rs/omiljeno/product/";
     public static final String PROFILE_PAGE = "https://www.knjizare-vulkan.rs/profil/";
     public static final String TERMS_OF_USE ="https://www.knjizare-vulkan.rs/uslovi-koriscenja";
+    public static final String FREE_DELIVERY = "https://www.knjizare-vulkan.rs/novosti/1223-besplatna-isporuka-za-bilo-koji-iznos-kupovnine?utm_source=slider&utm_medium=site&utm_campaign=";
+    public static final String ALL_ROMANS = "https://www.knjizare-vulkan.rs/romani/";
+    public static final String PRODUCT_PAGE ="https://www.knjizare-vulkan.rs/proizvodi";
+    public static final String TOP_LIST ="https://www.knjizare-vulkan.rs/top-liste-knjige";
 
 
 

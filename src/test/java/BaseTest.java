@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,26 +25,38 @@ public class BaseTest {
         return driver;
     }
 
-    //** Test for closing cookie
-
-    /* Steps to introduce:
-
-    1. Open Web Site (https://www.knjizare-vulkan.rs/), Cookie will Appear
-    2. Locate Button "Slazem se"
-    3. Click on Button and close Cookie
-     */
 
 
-    @Test
-    public void testVulkan(){
-        ChromeDriver driver = openChromeDriver();
-        driver.get("https://www.knjizare-vulkan.rs/");
+// metoda za zatvaranje cookies
+
+    public void clearCookies(WebDriver driver){
+
         WebElement cookieConsent = driver.findElement(By.xpath("//button[@class='cookie-agree 3'][.//span[contains(text(), 'Slažem se')]]"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
         wait.until(ExpectedConditions.visibilityOf(cookieConsent));
 
         cookieConsent.click();
+
+    }
+    // helper metoda za logovanje korisnika
+
+    public void loginUser(){
+        ChromeDriver driver = openChromeDriver();
+        driver.get("https://www.knjizare-vulkan.rs/");
+        clearCookies(driver);
+        WebElement logInUser = driver.findElement(By.xpath("//a[@class='login-btn']"));
+        logInUser.click();
+
+        WebElement loginEmailField = driver.findElement(By.id("login_email"));
+        loginEmailField.sendKeys(Strings.VALID_USER);
+
+        WebElement loginPasswordField = driver.findElement(By.id("login_password"));
+        loginPasswordField.sendKeys(Strings.VALID_PASSWORD);
+
+        WebElement submitButton = driver.findElement(By.xpath("//button[@class='btn btn-success btn-login confirm-loader']"));
+        submitButton.click();
+
 
     }
 
@@ -62,19 +75,33 @@ public class BaseTest {
 
     public void termsOfUse(){
         ChromeDriver driver = openChromeDriver();
-        driver.get("https://www.knjizare-vulkan.rs/");
-        WebElement cookieConsent = driver.findElement(By.xpath("//button[@class='cookie-agree 3'][.//span[contains(text(), 'Slažem se')]]"));
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        try {
+            driver.get("https://www.knjizare-vulkan.rs/");
+            WebElement cookieConsent = driver.findElement(By.xpath("//button[@class='cookie-agree 3'][.//span[contains(text(), 'Slažem se')]]"));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        wait.until(ExpectedConditions.visibilityOf(cookieConsent));
-        cookieConsent.click();
+            wait.until(ExpectedConditions.visibilityOf(cookieConsent));
+            cookieConsent.click();
 
-        WebElement termsOfUse = driver.findElement(By.xpath("//a[@href='https://www.knjizare-vulkan.rs/uslovi-koriscenja'][contains(text(),'Uslovi')]"));
-        termsOfUse.click();
+            WebElement termsOfUse = driver.findElement(By.xpath("//a[@href='https://www.knjizare-vulkan.rs/uslovi-koriscenja'][contains(text(),'Uslovi')]"));
+            termsOfUse.click();
 
-        /*String currentPageURL = driver.getCurrentUrl();
-        Assert.assertTrue("We are not on expected Page. Expected url : " + Strings.TERMS_OF_USE +
-                ". Actual: " + currentPageURL,currentPageURL.contains(Strings.TERMS_OF_USE));*/
+
+            WebElement titleOfTerms = driver.findElement(By.xpath("*//span[contains(text(),'Uslovi korišćenja i prodaje')]"));
+            titleOfTerms.isDisplayed();
+
+
+            String titleTermsOfUse = driver.getTitle();
+            System.out.println(" [TEST REPORT ] Prikaz naslova na strani Terms Of Use: " + titleTermsOfUse);
+
+
+        } finally {
+
+            driver.quit();
+        }
+
+
+
     }
 
 

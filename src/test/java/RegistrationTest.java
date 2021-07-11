@@ -1,5 +1,7 @@
+import org.checkerframework.checker.units.qual.K;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,7 +18,9 @@ public class RegistrationTest extends BaseTest {
     4. Confirm Check Box "Da, imam više od 15 godina"
     5. Choose Gender ('Male')
     6. Confirm Check Box "Slažem se sa uslovima korišćenja"
+    7.Click on Captcha - I am not a robot
      */
+
     @Test
     public void registrationUserTest() throws InterruptedException{
         ChromeDriver driver = openChromeDriver();
@@ -61,16 +65,26 @@ public class RegistrationTest extends BaseTest {
 
         WebElement checkAgeBox  = driver.findElement(By.xpath("//input[@id='reg_age']"));
         checkAgeBox.isSelected();
-        checkAgeBox.click();
+        checkAgeBox.sendKeys(Keys.SPACE);
+
+        WebElement radioButtonMale = driver.findElement(By.xpath("//input[@id='reg_gender_1']"));
+        radioButtonMale.sendKeys(Keys.SPACE);
+
+        WebElement termsOfUse = driver.findElement(By.xpath("//input[@id='reg_confirm']"));
+        termsOfUse.sendKeys(Keys.SPACE);
+
+        WebElement captchaRobot = driver.findElement(By.xpath("//iframe[@title='reCAPTCHA']"));
+        driver.switchTo().frame(captchaRobot);
+
+        WebElement checkBoxRobot = driver.findElement(By.id("recaptcha-anchor"));
+        checkBoxRobot.sendKeys(Keys.SPACE);
 
 
-        /*if(!checkAgeBox.isSelected())
-            checkAgeBox.click();
-*/
 
-        /* checkAgeBox.click();
-        checkAgeBox.isSelected();
-        */
+        driver.switchTo().defaultContent();
+
+
+
 
 
 

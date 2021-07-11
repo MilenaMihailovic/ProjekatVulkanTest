@@ -86,33 +86,15 @@ public class LoginTest extends BaseTest{
 
 
 
-
-
     }
-    //*Test for opening profile page
-    /* Steps to introduce
-    1. User is loged in (https://www.knjizare-vulkan.rs/)
-    2. User name is displayed
-    3. Click on user name open profile page
-    4. Validation: User picture is Displayed
-     */
-    @Test
-    public void profilePage(){
-        ChromeDriver driver = openChromeDriver();
-        driver.get("https://www.knjizare-vulkan.rs/");
-        WebElement cookieConsent = driver.findElement(By.xpath("//button[@class='cookie-agree 3'][.//span[contains(text(), 'Slažem se')]]"));
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        wait.until(ExpectedConditions.visibilityOf(cookieConsent));
-        cookieConsent.click();
 
-        WebElement userProfile = driver.findElement(By.xpath("//div[@class='row']//a[@href='https://www.knjizare-vulkan.rs/profil']"));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        wait.until(ExpectedConditions.visibilityOf(userProfile));
-        userProfile.isDisplayed();
-        userProfile.click();
-    }
+
+
+
+
+
 
 
 }
